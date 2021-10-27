@@ -1,12 +1,12 @@
 USE bookstore;
 
 -- insert data into products table
-INSERT INTO products VALUES (null, "PHP 6.0", 9);
-INSERT INTO products VALUES (null, "Android Programming for Beginners", 7);
-INSERT INTO products VALUES (null, "Web Development and Design Foundations", 11);
-INSERT INTO products VALUES (null, "Photoshop CC", 3);
-INSERT INTO products VALUES (null, "MySQL", 5);
-INSERT INTO products VALUES (null, "Google Analytics", 6);
+INSERT INTO products VALUES (null, "PHP 6.0", 10.0, 9);
+INSERT INTO products VALUES (null, "Android Programming for Beginners", 13.0, 7);
+INSERT INTO products VALUES (null, "Web Development and Design Foundations", 7.0, 11);
+INSERT INTO products VALUES (null, "Photoshop CC", 5.0, 3);
+INSERT INTO products VALUES (null, "MySQL", 8.0, 5);
+INSERT INTO products VALUES (null, "Google Analytics", 4.0, 6);
 
 -- insert data into customers table
 INSERT INTO customers VALUES (null, "Alex", "Smith", "Simcoe ON");
