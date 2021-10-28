@@ -8,19 +8,47 @@
 
             session_start();
 
-            $product_id = $_GET['productid'];
+            if(isset($_POST['add-to-cart'])){
 
-            $q = "SELECT * FROM products WHERE product_id = '$product_id' ";
-            $result = mysqli_query($dbc, $q) OR mysqli_error($dbc);
+                if(isset($_SESSION['cart'])){
 
-            $row = mysqli_fetch_array($result);
+                    $book_cart_id = array_column($_SESSION['cart'], 'product_id');
+                    if(!in_array($_GET['productid'], $book_cart_id)){
 
-            $_SESSION['product_name'] = $row['product_name'];
-            $_SESSION['image'] = $row['image'];
-            $_SESSION['price'] = $row['price'];
-            $_SESSION['stock'] = $row['stock'];
+                        $count = count($_SESSION['cart']);
 
-            header("location: checkout.php")
+                        $book_cart = array(
+                            'product_id' => $_GET['productid'],
+                            'product_name' => $_POST['hidden_name'],
+                            'price' => $_POST['hidden_price'],
+                            'stock' => $_POST['hidden_stock']
+                        );
+
+                        $_SESSION['cart'][$count] = $book_cart;
+    
+                    }
+                    else {
+                        echo " <p>Item already added!</p>";
+                        header('location:store.php');
+                    }
+
+                }
+                else{
+                    $book_cart = array(
+                        'product_id' => $_GET['productid'],
+                        'product_name' => $_POST['hidden_name'],
+                        'price' => $_POST['hidden_price'],
+                        'stock' => $_POST['hidden_stock']
+                    );
+
+                    $_SESSION['cart'][0] = $book_cart;
+                    
+                }
+            }
+
+            
+
+            header("location: book_cart.php")
 
         ?>
     </body>
