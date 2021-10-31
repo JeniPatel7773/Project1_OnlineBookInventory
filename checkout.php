@@ -1,6 +1,11 @@
 <html>
     <head>
         <title>Book Store - checkout</title>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     </head>
     <body>
         <?php
@@ -20,14 +25,6 @@
                     $stmt = mysqli_prepare($dbc, $q);
 	                mysqli_stmt_bind_param($stmt, 'sss', $first_name, $last_name, $address);
                     mysqli_stmt_execute($stmt);
-
-                    // Print a message based upon the result:
-                    if (mysqli_stmt_affected_rows($stmt) == 1) {
-                        echo '<p>Your message has been posted.</p>';
-                    } else {
-                        echo '<p style="font-weight: bold; color: #C00">Your message could not be posted.</p>';
-                        echo '<p>' . mysqli_stmt_error($stmt) . '</p>';
-                    }
 
                     mysqli_stmt_close($stmt);
 
@@ -71,15 +68,16 @@
                     }
                     // Print a message based upon the result:
                     if (mysqli_stmt_affected_rows($stmt) == 1) {
-                        echo '<p>Your message has been posted.</p>';
+                        echo "<script>alert('Order placed successfully')</script>";
+                        
                     } else {
-                        echo '<p style="font-weight: bold; color: #C00">Your message could not be posted.</p>';
+                        echo "<script>alert('Your order could not be posted.')</script>";
                         echo '<p>' . mysqli_stmt_error($stmt) . '</p>';
                     }
 
                  }
                  else{
-                     echo "Error: All fields are required.<br><br>";
+                     echo "<script>alert('Error: All fields are required.')</script>";
                  }
              }
             
@@ -87,38 +85,117 @@
 
         ?>
 
-        <h2>Enter Your Information</h2>
+        <!-- Wrapper -->
+			<div id="wrapper">
 
-         <form action="checkout.php" method="POST">
-            <p><label>First Name: <input type="text" name="first_name" value=<?php
-                if(isset($_POST["first_name"])){
-                    echo $_POST["first_name"];
-                }
-            ?>>
-            </label></p>
-            
-            <p><label>Last Name: <input type="text" name="last_name" value=<?php
-                if(isset($_POST["last_name"])){
-                    echo $_POST["last_name"];
-                }
-            ?>>
-            </label></p>
+                <!-- Header -->
+                <header id="header">
+                    <div class="inner">
 
-            <p><label>Address: <input type="text" name="address" value=<?php
-                if(isset($_POST["address"])){
-                    echo $_POST["address"];
-                }
-            ?>>
-            </label></p>
+                        <!-- Logo -->
+                            <a href="index.php" class="logo">
+                                    <span class="fa fa-book"></span> <span class="title">Online Book Store</span>
+                                </a>
 
-            <p><label>Payment: </label>
-            <input type="radio" name="payment" value="1"/>Debit Card
-            <input type="radio" name="payment" value="2"/>Credit Card
-            <input type="radio" name="payment" value="3"/>Cash
-            </p>
- 
-            <input type="submit" name="submit" value="Submit">
-        </form>
+                        <!-- Nav -->
+                            <nav>
+                                <ul>
+                                    <li><a href="#menu">Menu</a></li>
+                                </ul>
+                            </nav>
+
+                    </div>
+                </header>
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <h2>Menu</h2>
+                    <ul>
+                        <li><a href="index.php" >Home</a></li>
+
+                        <li><a href="store.php">Store</a></li>
+
+                        <li><a href="book_cart.php">Cart</a></li>
+
+                    </ul>
+                </nav>
+
+                <!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Checkout</h1>
+
+                            <h3>Enter Your Information</h3>
+
+                            <form action="checkout.php" method="POST">
+
+                                <label>First Name: <input type="text" name="first_name" value=<?php
+                                    if(isset($_POST["first_name"])){
+                                        echo $_POST["first_name"];
+                                    }
+                                ?>>
+                                </label>
+                                
+                                <label>Last Name: <input type="text" name="last_name" value=<?php
+                                    if(isset($_POST["last_name"])){
+                                        echo $_POST["last_name"];
+                                    }
+                                ?>>
+                                </label>
+
+                                <label>Address: <input type="text" name="address" value=<?php
+                                    if(isset($_POST["address"])){
+                                        echo $_POST["address"];
+                                    }
+                                ?>>
+                                </label>
+
+                                <label>Payment: </label>
+                                <p><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="payment" id="radio1" value="1">
+                                    <label class="form-check-label" for="radio1">Debit Card</label>
+                                </div>
+                                <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="payment" id="radio2" value="2">
+                                    <label class="form-check-label" for="radio2">Credit Card</label>
+                                </div>
+                                <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="payment" id="radio3" value="3"/>
+                                    <label class="form-check-label" for="radio3">Cash</label>
+                                </div>
+                                </p>
+
+                                <label>Card Number: <input type="text" name="card_number" value=<?php
+                                    if(isset($_POST["card_number"])){
+                                        echo $_POST["card_number"];
+                                    }
+                                ?>>
+                                </label>
+                                
+                    
+                                <input type="submit" name="submit" value="Submit">
+                            </form>
+						</div>
+                        <footer id="footer">
+						<div class="inner">
+
+							<ul class="copyright text-center">
+								<li>Copyright © 2020 Book Store </li>
+								<li><a href="mailto:jenipatel@gmail.com">jenipatel@gmail.com</a></li>
+							</ul>
+						</div>
+					</footer>
+					</div>
+
+                    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/main.js"></script>
        
     </body>
 </html>
