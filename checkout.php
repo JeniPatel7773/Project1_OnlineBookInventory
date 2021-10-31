@@ -21,6 +21,14 @@
 	                mysqli_stmt_bind_param($stmt, 'sss', $first_name, $last_name, $address);
                     mysqli_stmt_execute($stmt);
 
+                    // Print a message based upon the result:
+                    if (mysqli_stmt_affected_rows($stmt) == 1) {
+                        echo '<p>Your message has been posted.</p>';
+                    } else {
+                        echo '<p style="font-weight: bold; color: #C00">Your message could not be posted.</p>';
+                        echo '<p>' . mysqli_stmt_error($stmt) . '</p>';
+                    }
+
                     mysqli_stmt_close($stmt);
 
 
